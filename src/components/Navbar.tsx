@@ -133,14 +133,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Top Bar with Stats & Controls */}
         <div className="px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2 border-b border-slate-800/80 bg-slate-950/70 text-xs">
           {/* Logo & Info */}
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-950/40 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-950/40 shrink-0">
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 font-bold text-slate-100 text-sm tracking-tight truncate">
-                <span>FREQTRADE STUDIO</span>
-                <span className="hidden xs:inline-flex px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
+                <span>FREQTRADE <span className="hidden sm:inline">STUDIO</span></span>
+                <span className="hidden md:inline-flex px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
                   v2025.2
                 </span>
               </div>
@@ -171,20 +171,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Bot Controls & Live Stats */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
-            {/* Real-Time Live Clock & Date */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Real-Time Live Clock & Date (Tablet & Desktop) */}
             <button
               id="navbar-live-clock-btn"
               onClick={() => setUseUtcTime(!useUtcTime)}
               title="Clique para alternar entre Horário Local e Horário UTC (Referência para velas de Trading da Binance)"
-              className="flex items-center gap-1.5 bg-slate-950/90 hover:bg-slate-850 text-slate-200 border border-slate-800 hover:border-slate-700 px-2 sm:px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer shadow-sm group active:scale-95 shrink-0"
+              className="hidden md:flex items-center gap-1.5 bg-slate-950/90 hover:bg-slate-850 text-slate-200 border border-slate-800 hover:border-slate-700 px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer shadow-sm group active:scale-95 shrink-0"
             >
               <Clock className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform shrink-0" />
-              <span className="text-slate-400 font-medium hidden sm:inline capitalize">{displayDate}</span>
-              <span className="text-slate-600 hidden sm:inline">•</span>
+              <span className="text-slate-400 font-medium hidden lg:inline capitalize">{displayDate}</span>
+              <span className="text-slate-600 hidden lg:inline">•</span>
               <span className="font-bold text-white tracking-wider flex items-center gap-1">
                 <span>{displayTime}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping opacity-75 hidden xs:inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping opacity-75 inline-block" />
               </span>
               <span
                 className={`text-[9px] px-1 py-0.2 rounded font-extrabold uppercase border ${
@@ -223,8 +223,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* Financial Summary (Compact on mobile) */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5 bg-slate-900/90 px-2 sm:px-3 py-1 rounded-lg border border-slate-800 font-mono text-[11px] sm:text-xs">
+            {/* Financial Summary (Visible on sm+ in top bar) */}
+            <div className="hidden sm:flex items-center gap-1.5 sm:gap-2.5 bg-slate-900/90 px-2 sm:px-3 py-1 rounded-lg border border-slate-800 font-mono text-[11px] sm:text-xs">
               <div className="flex items-center gap-1 text-slate-300">
                 <Wallet className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                 <span className="hidden md:inline">Balance:</span>
@@ -238,7 +238,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {totalProfit >= 0
                     ? `+$${totalProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                     : `-$${Math.abs(totalProfit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                  <span className="hidden xs:inline"> ({totalProfitPct >= 0 ? '+' : ''}{totalProfitPct.toFixed(1)}%)</span>
+                  <span className="hidden lg:inline"> ({totalProfitPct >= 0 ? '+' : ''}{totalProfitPct.toFixed(1)}%)</span>
                 </span>
               </div>
             </div>
@@ -274,7 +274,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Bot State Controls (Pause / Resume) */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 shrink-0">
               {botStatus === 'running' ? (
                 <button
                   id="pause-bot-btn"
@@ -315,6 +315,45 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 {mobileMenuOpen ? <X className="w-4 h-4 text-rose-400" /> : <Menu className="w-4 h-4 text-emerald-400" />}
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Status Sub-Bar: Live Clock & Financial Glance (Mobile & Small Tablets) */}
+        <div className="md:hidden px-3 py-1.5 bg-slate-950 border-b border-slate-800/80 flex items-center justify-between gap-2 text-[11px] font-mono">
+          {/* Mobile Live Clock Button */}
+          <button
+            id="navbar-mobile-live-clock-btn"
+            onClick={() => setUseUtcTime(!useUtcTime)}
+            title="Clique para alternar entre Horário Local e Horário UTC"
+            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 px-2 py-0.5 rounded-md cursor-pointer active:scale-95 transition-all shrink-0"
+          >
+            <Clock className="w-3 h-3 text-cyan-400 shrink-0" />
+            <span className="font-bold text-white tracking-wider">{displayTime}</span>
+            <span
+              className={`text-[8.5px] px-1 py-0.2 rounded font-extrabold uppercase border ${
+                useUtcTime
+                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
+                  : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+              }`}
+            >
+              {useUtcTime ? 'UTC' : 'LOCAL'}
+            </span>
+          </button>
+
+          {/* Mobile Balance & Profit Glance */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
+            <div className="flex items-center gap-1 text-slate-300 shrink-0">
+              <Wallet className="w-3 h-3 text-emerald-400 shrink-0" />
+              <span className="font-semibold text-white">${totalBalance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+            </div>
+            <div className="w-px h-2.5 bg-slate-800" />
+            <div className="flex items-center gap-1 shrink-0">
+              <TrendingUp className="w-3 h-3 text-emerald-400 shrink-0" />
+              <span className={`font-semibold ${totalProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {totalProfit >= 0 ? `+$${totalProfit.toFixed(0)}` : `-$${Math.abs(totalProfit).toFixed(0)}`}
+                <span className="text-[9.5px] ml-0.5">({totalProfitPct >= 0 ? '+' : ''}{totalProfitPct.toFixed(1)}%)</span>
+              </span>
             </div>
           </div>
         </div>
