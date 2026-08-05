@@ -1,0 +1,6 @@
+{
+  "name": "Freqtrade Trading Studio",
+  "description": "Visual dashboard and algorithmic trade analyzer for Freqtrade crypto bot with Backend Base Memory, automated real-time free News APIs monitoring (CryptoCompare, Alternative.me Fear & Greed), live NLP sentiment engine, 360° MTF Confluence scanner, 3 Pillars of Solid Signal validation, FreqAI Machine Learning, and backtesting simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
